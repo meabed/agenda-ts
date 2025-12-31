@@ -5,7 +5,7 @@ export const isExpired: IsExpiredMethod = function (this: Job, useRealStatus = f
   if (useRealStatus) {
     this.fetchStatus();
   }
-  const definition = this.pulse._definitions[this.attrs.name];
+  const definition = this.agenda._definitions[this.attrs.name];
 
   const lockDeadline = new Date(Date.now() - definition.lockLifetime);
 

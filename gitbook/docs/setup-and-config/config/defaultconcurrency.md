@@ -2,22 +2,22 @@
 
 
 
-## `pulse.defaultConcurrency(concurrency)`
+## `agenda.defaultConcurrency(concurrency)`
 
 {% hint style="info" %}
-The `defaultConcurrency` method sets the default number of jobs that can be processed concurrently by a `Pulse` instance. This setting is crucial for controlling how many jobs are run at the same time, affecting resource utilization and job throughput.
+The `defaultConcurrency` method sets the default number of jobs that can be processed concurrently by a `Agenda` instance. This setting is crucial for controlling how many jobs are run at the same time, affecting resource utilization and job throughput.
 {% endhint %}
 
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Set the default concurrency for job processing to 3
-pulse.defaultConcurrency(3);
+agenda.defaultConcurrency(3);
 
 
-//or new Pulse({ defaultConcurrency: 3 });
+//or new Agenda({ defaultConcurrency: 3 });
 ```
 
 
@@ -28,7 +28,7 @@ pulse.defaultConcurrency(3);
 
 ### Returns
 
-* **`Pulse`**: Returns the `Pulse` instance, allowing for chaining of additional method calls.
+* **`Agenda`**: Returns the `Agenda` instance, allowing for chaining of additional method calls.
 
 
 

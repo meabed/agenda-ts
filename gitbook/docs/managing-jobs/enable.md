@@ -2,7 +2,7 @@
 
 
 
-## `pulse.enable(query)`
+## `agenda.enable(query)`
 
 {% hint style="info" %}
 The `enable` method reverses the effects of the `disable` method by updating job records in the MongoDB database to clear the `disabled` flag, allowing them to be processed again by the job scheduler. This is useful for resuming job execution after a temporary pause.
@@ -11,12 +11,12 @@ The `enable` method reverses the effects of the `disable` method by updating job
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Example of enabling all jobs that were disabled for a maintenance window
 const maintenanceQuery = { reason: 'maintenance' };
 
-pulse.enable(maintenanceQuery)
+agenda.enable(maintenanceQuery)
   .then(modifiedCount => console.log(`${modifiedCount} jobs re-enabled after maintenance`))
   .catch(error => console.error('Failed to enable jobs:', error));
 ```

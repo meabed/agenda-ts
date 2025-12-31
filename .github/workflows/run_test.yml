@@ -48,5 +48,5 @@ jobs:
         id: coverageComment
         uses: MishaKav/jest-coverage-comment@main
         with:
-          junitxml-title: Pulse Test Report
+          junitxml-title: Agenda Test Report
           junitxml-path: ./junit.xml

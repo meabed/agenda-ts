@@ -14,7 +14,7 @@ The `remove` method deletes a specific job from the MongoDB database, ensuring t
 
 {% code fullWidth="false" %}
 ```typescript
-const job = pulse.create('test', {});
+const job = agenda.create('test', {});
 job.remove();
 ```
 {% endcode %}

@@ -2,7 +2,7 @@
 
 
 
-## `pulse.isRunning(useRealStatus?)`
+## `agenda.isRunning(useRealStatus?)`
 
 {% hint style="info" %}
 The `isRunning` method checks if a job is currently active (i.e., running). A job is considered running if it has started but not yet finished, or if it has restarted after its last completion.
@@ -11,9 +11,9 @@ The `isRunning` method checks if a job is currently active (i.e., running). A jo
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
-pulse.define('test', async (job) => {
+agenda.define('test', async (job) => {
    if (job.isRunning()) {
     console.log('The job is currently running.');
   } else {

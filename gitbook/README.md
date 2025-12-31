@@ -2,7 +2,7 @@
 
 
 
-<figure><img src=".gitbook/assets/Pulsecron_logo.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Agendacron_logo.png" alt=""><figcaption></figcaption></figure>
 
 ## **Definition and Context**:
 

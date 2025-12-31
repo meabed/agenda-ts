@@ -2,7 +2,7 @@
 
 
 
-## `pulse.resumeOnRestart(resume)`
+## `agenda.resumeOnRestart(resume)`
 
 {% hint style="info" %}
 The `resumeOnRestart` method sets a flag to ensure that jobs are resumed if the system restarts. This is particularly important for resuming unfinished jobs that were in progress or awaiting execution prior to the restart.
@@ -11,11 +11,11 @@ The `resumeOnRestart` method sets a flag to ensure that jobs are resumed if the 
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
-pulse.resumeOnRestart(true) // or pulse.resumeOnRestart()
+agenda.resumeOnRestart(true) // or agenda.resumeOnRestart()
 
-//or new Pulse({ resumeOnRestart: true });
+//or new Agenda({ resumeOnRestart: true });
 ```
 
 
@@ -26,7 +26,7 @@ pulse.resumeOnRestart(true) // or pulse.resumeOnRestart()
 
 ### Returns
 
-* **`Pulse`**: Returns the instance of the `Pulse` class, enabling method chaining.
+* **`Agenda`**: Returns the instance of the `Agenda` class, enabling method chaining.
 
 
 

@@ -1,11 +1,11 @@
-# Why Pulse?
+# Why Agenda?
 
-<figure><img src=".gitbook/assets/Pulsecron_logo.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Agendacron_logo.png" alt=""><figcaption></figcaption></figure>
 
 ## **Continuation of Agenda**:
 
-* Pulse is developed as a continuation of the popular Agenda project, which is no longer actively maintained.
-* Recognizing the gap left in the Node.js ecosystem, Pulse aims to provide ongoing support and enhancements for job scheduling needs.
+* Agenda is developed as a continuation of the popular Agenda project, which is no longer actively maintained.
+* Recognizing the gap left in the Node.js ecosystem, Agenda aims to provide ongoing support and enhancements for job scheduling needs.
 
 ## **Advanced Functionalities**:
 

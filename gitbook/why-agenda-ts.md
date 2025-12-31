@@ -1,6 +1,6 @@
 # Why Agenda-TS?
 
-<figure><img src=".gitbook/assets/Pulsecron_logo.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/Agendacron_logo.png" alt=""><figcaption></figcaption></figure>
 
 ## **Continuation of Agenda**:
 

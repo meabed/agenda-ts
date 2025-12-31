@@ -8,5 +8,5 @@ export type SaveMethod = () => Promise<Job>;
  * @returns instance of Job resolved after job is saved or errors
  */
 export const save: SaveMethod = async function (this: Job) {
-  return this.pulse.saveJob(this);
+  return this.agenda.saveJob(this);
 };

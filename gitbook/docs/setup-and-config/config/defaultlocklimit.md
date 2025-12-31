@@ -2,7 +2,7 @@
 
 
 
-## `pulse.defaultLockLimit(times)`
+## `agenda.defaultLockLimit(times)`
 
 {% hint style="info" %}
 The `defaultLockLimit` method sets the default number of times jobs of any given type can be locked concurrently. This setting helps to manage the concurrency of job processing more finely by limiting how many instances of the same job type can be prepared for execution at the same time.
@@ -11,12 +11,12 @@ The `defaultLockLimit` method sets the default number of times jobs of any given
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Set the default concurrency for job processing to 3
-pulse.defaultLockLimit(2);
+agenda.defaultLockLimit(2);
 
-//or new Pulse({ defaultLockLimit: 2 });
+//or new Agenda({ defaultLockLimit: 2 });
 ```
 
 
@@ -27,7 +27,7 @@ pulse.defaultLockLimit(2);
 
 ### Returns
 
-* **`Pulse`**: Returns the instance of the `Pulse` class, allowing for method chaining.
+* **`Agenda`**: Returns the instance of the `Agenda` class, allowing for method chaining.
 
 
 

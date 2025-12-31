@@ -2,7 +2,7 @@
 
 
 
-## `pulse.schedule(when, names, data?)`
+## `agenda.schedule(when, names, data?)`
 
 {% hint style="info" %}
 The `schedule` method allows you to set a specific time for a job or multiple jobs to be executed. This is useful for tasks that must occur at precise times rather than at regular intervals.
@@ -11,16 +11,16 @@ The `schedule` method allows you to set a specific time for a job or multiple jo
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Schedule a single job to run next Monday at 9 AM
 const nextMonday = new Date();
 nextMonday.setDate(nextMonday.getDate() + ((1 + 7 - nextMonday.getDay()) % 7 || 7));
 nextMonday.setHours(9, 0, 0, 0);
 
-pulse.schedule(nextMonday, 'weeklyMeetingReminder', { meetingId: 456 });
+agenda.schedule(nextMonday, 'weeklyMeetingReminder', { meetingId: 456 });
 
-pulse.schedule('tomorrow at noon', [
+agenda.schedule('tomorrow at noon', [
 	'printAnalyticsReport',
 	'sendNotifications',
 	'updateUserRecords'

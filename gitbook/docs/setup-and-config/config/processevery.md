@@ -2,21 +2,21 @@
 
 
 
-## `pulse.processEvery(interval)`
+## `agenda.processEvery(interval)`
 
 {% hint style="info" %}
-The `processEvery` method of the `Pulse` class allows to configure the job processing interval, meaning the frequency at which Pulse will query the database looking for jobs that need to be processed.
+The `processEvery` method of the `Agenda` class allows to configure the job processing interval, meaning the frequency at which Agenda will query the database looking for jobs that need to be processed.
 {% endhint %}
 
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Configure the job processing interval to every 10 minutes
-pulse.processEvery('10 minutes');
+agenda.processEvery('10 minutes');
 
-//or new Pulse({ processEvery:'10 minutes' });
+//or new Agenda({ processEvery:'10 minutes' });
 ```
 
 
@@ -27,5 +27,5 @@ pulse.processEvery('10 minutes');
 
 ### Returns
 
-* **`Pulse`**: Returns the instance of the `Pulse` class, facilitating method chaining.
+* **`Agenda`**: Returns the instance of the `Agenda` class, facilitating method chaining.
 

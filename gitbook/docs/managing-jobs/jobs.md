@@ -2,7 +2,7 @@
 
 
 
-## `pulse.jobs(query, sort, limit, skip)`
+## `agenda.jobs(query, sort, limit, skip)`
 
 {% hint style="info" %}
 The `jobs` method queries the MongoDB database to retrieve an array of jobs that match a specified filter. It supports sorting, limiting the number of results, and skipping a specified number of records, making it a versatile tool for job management and monitoring.
@@ -11,10 +11,10 @@ The `jobs` method queries the MongoDB database to retrieve an array of jobs that
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Fetch the first 10 completed jobs, skipping the first 5, sorted by creation date
-pulse.jobs({ status: 'completed' }, { createdAt: -1 }, 10, 5)
+agenda.jobs({ status: 'completed' }, { createdAt: -1 }, 10, 5)
   .then(jobs => {
     console.log('Retrieved completed jobs:', jobs);
   })

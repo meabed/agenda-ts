@@ -2,7 +2,7 @@
 
 
 
-## `pulse.cancel(query)`
+## `agenda.cancel(query)`
 
 {% hint style="info" %}
 The `cancel` method is designed to cancel and permanently remove jobs from the MongoDB database that match a specified query. This functionality is critical for managing job lifecycles, particularly when certain jobs are no longer needed or conditions change requiring their termination.
@@ -11,12 +11,12 @@ The `cancel` method is designed to cancel and permanently remove jobs from the M
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Example of canceling all jobs with a specific priority
 const query = { priority: { $lt: 0 } }; // Cancels all jobs with a negative priority
 
-pulse.cancel(query)
+agenda.cancel(query)
   .then(deletedCount => console.log(`${deletedCount} low priority jobs cancelled`))
   .catch(error => console.error('Failed to cancel jobs:', error));
 ```

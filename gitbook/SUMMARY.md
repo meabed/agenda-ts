@@ -1,7 +1,7 @@
 # Table of contents
 
-* [What is Pulse?](README.md)
-* [Why Pulse?](why-pulse.md)
+* [What is Agenda?](README.md)
+* [Why Agenda?](why-agenda.md)
 * [Quick Start](quick-start.md)
 
 ## DOCS

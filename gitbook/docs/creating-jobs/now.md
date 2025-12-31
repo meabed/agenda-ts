@@ -2,7 +2,7 @@
 
 
 
-## `pulse.now(name, data?)`
+## `agenda.now(name, data?)`
 
 {% hint style="info" %}
 The `now` method schedules a job to be executed immediately. It creates a job instance and schedules it for the current time, allowing for rapid job processing.
@@ -11,10 +11,10 @@ The `now` method schedules a job to be executed immediately. It creates a job in
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Schedule a job to run immediately to handle a high priority update
-pulse.now('urgentUpdate', { updateDetails: 'Fix critical security issue' })
+agenda.now('urgentUpdate', { updateDetails: 'Fix critical security issue' })
 ```
 
 

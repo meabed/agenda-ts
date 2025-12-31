@@ -2,22 +2,22 @@
 
 
 
-## `pulse.lockLimit(limit)`
+## `agenda.lockLimit(limit)`
 
 {% hint style="info" %}
-The `lockLimit` method sets the maximum number of jobs that can be locked by the `Pulse` instance at any one time. This is a global setting affecting all job processing, helping to control job concurrency and prevent overload.
+The `lockLimit` method sets the maximum number of jobs that can be locked by the `Agenda` instance at any one time. This is a global setting affecting all job processing, helping to control job concurrency and prevent overload.
 {% endhint %}
 
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Set a global lock limit to prevent too many jobs from being locked at the same time
-pulse.lockLimit(5);
+agenda.lockLimit(5);
 
 
-//or new Pulse({ lockLimit: 5 });
+//or new Agenda({ lockLimit: 5 });
 ```
 
 
@@ -28,7 +28,7 @@ pulse.lockLimit(5);
 
 ### Returns
 
-* **`Pulse`**: Returns the `Pulse` instance, enabling method chaining.
+* **`Agenda`**: Returns the `Agenda` instance, enabling method chaining.
 
 
 

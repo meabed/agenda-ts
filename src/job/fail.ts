@@ -1,7 +1,7 @@
 import createDebugger from 'debug';
 import { Job } from '.';
 
-const debug = createDebugger('pulse:job');
+const debug = createDebugger('agenda:job');
 
 export type FailMethod = (reason: string | Error) => Job;
 

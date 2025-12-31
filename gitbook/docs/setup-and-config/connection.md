@@ -1,13 +1,13 @@
 # Connection
 
-The MongoDB connection can be configured through the `PulseConfig` object, which supports either direct client reuse or new connection parameters.
+The MongoDB connection can be configured through the `AgendaConfig` object, which supports either direct client reuse or new connection parameters.
 
 
 
 #### Example Usage
 
 ```typescript
-const pulseConfig = {
+const agendaConfig = {
   processEvery: '1 minute',
   maxConcurrency: 10,
   db: {
@@ -18,7 +18,7 @@ const pulseConfig = {
 
 
 
-const pulse = new Pulse(pulseConfig, (error, collection) => {
+const agenda = new Agenda(agendaConfig, (error, collection) => {
   if (error) {
     console.error('Connection error:', error);
   } else {
@@ -31,7 +31,7 @@ const pulse = new Pulse(pulseConfig, (error, collection) => {
 
 
 
-### `new Pulse(config?, cb?)`
+### `new Agenda(config?, cb?)`
 
 #### Parameters
 
@@ -47,9 +47,9 @@ const pulse = new Pulse(pulseConfig, (error, collection) => {
   * **`mongo`** (`MongoDb` - optional): An existing MongoDB client that can be reused instead of creating a new connection.
   * **`db`** (`object` - optional): Configuration for the MongoDB connection if not using an existing `MongoDb` client. Includes:
     * **`address`** (`string`): The MongoDB connection URI.
-    * **`collection`** (`string` - optional): Specifies the MongoDB collection to use. Defaults to `pulseJobs`.
+    * **`collection`** (`string` - optional): Specifies the MongoDB collection to use. Defaults to `agendaJobs`.
     * **`options`** (`MongoClientOptions` - optional): MongoDB client options.
-  * **`disableAutoIndex`** (`boolean` - optional): If set to `true`, automatic indexing of job fields by the `Pulse` system is disabled. Useful for performance tuning in production environments. Defaults to `false` if not specified.
+  * **`disableAutoIndex`** (`boolean` - optional): If set to `true`, automatic indexing of job fields by the `Agenda` system is disabled. Useful for performance tuning in production environments. Defaults to `false` if not specified.
   * **`resumeOnRestart`**(`boolean` - optional) - This config is used to ensure that jobs left unfinished due to an unexpected system shutdown or restart are properly resumed once the system is back online. Defaults to `true` if not specified.
 
 

@@ -1,7 +1,7 @@
 import debug from 'debug';
 import { MongoClient } from 'mongodb';
 
-const log = debug('pulse:mock-mongodb');
+const log = debug('agenda:mock-mongodb');
 
 export interface IMockMongo {
   disconnect: () => Promise<void>;

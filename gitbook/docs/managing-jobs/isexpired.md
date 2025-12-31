@@ -2,7 +2,7 @@
 
 
 
-## `pulse.isExpired(useRealStatus?)`
+## `agenda.isExpired(useRealStatus?)`
 
 {% hint style="info" %}
 The `isExpired` method determines whether a job's lock has expired, indicating that the job may be considered stalled or failed if it has not been updated within the expected lock lifetime.
@@ -12,9 +12,9 @@ The `isExpired` method determines whether a job's lock has expired, indicating t
 
 {% code fullWidth="false" %}
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
-pulse.define('test', async (job) => {
+agenda.define('test', async (job) => {
   if (job.isExpired()) {
     console.log('The job lock has expired.');
   } else {

@@ -2,7 +2,7 @@
 
 
 
-## `pulse.sort(query)`
+## `agenda.sort(query)`
 
 {% hint style="info" %}
 The `sort` method customizes the sorting order of jobs when querying the MongoDB database. This order can significantly affect the efficiency and priority with which jobs are processed.
@@ -11,12 +11,12 @@ The `sort` method customizes the sorting order of jobs when querying the MongoDB
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Set a custom sort order for job processing
-pulse.sort({ createdAt: -1 });
+agenda.sort({ createdAt: -1 });
 
-//or new Pulse({ sort: { createdAt: -1 } });
+//or new Agenda({ sort: { createdAt: -1 } });
 ```
 
 
@@ -27,7 +27,7 @@ pulse.sort({ createdAt: -1 });
 
 ### Returns
 
-* **`Pulse`**: Returns the instance of the `Pulse` class, enabling method chaining.
+* **`Agenda`**: Returns the instance of the `Agenda` class, enabling method chaining.
 
 
 

@@ -2,7 +2,7 @@ import createDebugger from 'debug';
 import { Job } from '.';
 import { JobError } from '../utils';
 
-const debug = createDebugger('pulse:job');
+const debug = createDebugger('agenda:job');
 
 export type RunMethod = () => Promise<Job>;
 /**
@@ -11,8 +11,8 @@ export type RunMethod = () => Promise<Job>;
  * @function
  */
 export const run: RunMethod = async function (this: Job) {
-  const { pulse } = this;
-  const definition = pulse._definitions[this.attrs.name];
+  const { agenda } = this;
+  const definition = agenda._definitions[this.attrs.name];
 
   return new Promise(async (resolve, reject) => {
     this.attrs.lastRunAt = new Date();
@@ -54,17 +54,17 @@ export const run: RunMethod = async function (this: Job) {
       debug('[%s:%s] was saved successfully to MongoDB', this.attrs.name, this.attrs._id);
 
       if (error) {
-        pulse.emit('fail', error, this);
-        pulse.emit('fail:' + this.attrs.name, error, this);
+        agenda.emit('fail', error, this);
+        agenda.emit('fail:' + this.attrs.name, error, this);
         debug('[%s:%s] has failed [%s]', this.attrs.name, this.attrs._id, error.message);
       } else {
-        pulse.emit('success', this);
-        pulse.emit('success:' + this.attrs.name, this);
+        agenda.emit('success', this);
+        agenda.emit('success:' + this.attrs.name, this);
         debug('[%s:%s] has succeeded', this.attrs.name, this.attrs._id);
       }
 
-      pulse.emit('complete', this);
-      pulse.emit('complete:' + this.attrs.name, this);
+      agenda.emit('complete', this);
+      agenda.emit('complete:' + this.attrs.name, this);
       debug(
         '[%s:%s] job finished at [%s] and was unlocked',
         this.attrs.name,
@@ -72,13 +72,13 @@ export const run: RunMethod = async function (this: Job) {
         this.attrs.lastFinishedAt
       );
       // Curiously, we still resolve successfully if the job processor failed.
-      // Pulse is not equipped to handle errors originating in user code, so, we leave them to inspect the side-effects of job.fail()
+      // Agenda is not equipped to handle errors originating in user code, so, we leave them to inspect the side-effects of job.fail()
       resolve(this);
     };
 
     try {
-      pulse.emit('start', this);
-      pulse.emit('start:' + this.attrs.name, this);
+      agenda.emit('start', this);
+      agenda.emit('start:' + this.attrs.name, this);
       debug('[%s:%s] starting job', this.attrs.name, this.attrs._id);
       if (!definition) {
         debug('[%s:%s] has no definition, can not run', this.attrs.name, this.attrs._id);
@@ -87,9 +87,9 @@ export const run: RunMethod = async function (this: Job) {
 
       // on restart, skip the job if it's not time to run
       if (
-        !this.pulse._resumeOnRestart &&
+        !this.agenda._resumeOnRestart &&
         previousRunAt &&
-        this.pulse._readyAt >= previousRunAt &&
+        this.agenda._readyAt >= previousRunAt &&
         this.attrs.nextRunAt
       ) {
         debug('[%s:%s] job resumeOnRestart skipped', this.attrs.name, this.attrs._id);

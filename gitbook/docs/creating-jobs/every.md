@@ -2,7 +2,7 @@
 
 
 
-## `pulse.every(interval, names, data?, options?)`
+## `agenda.every(interval, names, data?, options?)`
 
 {% hint style="info" %}
 The `every` method schedules one or more jobs to run repeatedly at specified intervals. It allows for precise control over job execution timing and can be used to schedule routine tasks such as data synchronization, report generation, or regular maintenance tasks.
@@ -11,14 +11,14 @@ The `every` method schedules one or more jobs to run repeatedly at specified int
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
-pulse.start()
+agenda.start()
 // Set a custom sort order for job processing
-pulse.every('1 day', 'dailyReport', { reportId: 123 });
+agenda.every('1 day', 'dailyReport', { reportId: 123 });
 
 // Schedule multiple jobs to run every 30 minutes
-pulse.every('30 minutes', ['updateCache', 'refreshData'], null, { skipImmediate: true });
+agenda.every('30 minutes', ['updateCache', 'refreshData'], null, { skipImmediate: true });
 ```
 
 

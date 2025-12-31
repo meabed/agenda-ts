@@ -1,13 +1,13 @@
 import { Job, JobAttributes } from '../job';
-import { Pulse } from '../pulse';
+import { Agenda } from '../agenda';
 
 /**
  * Create Job object from data
- * @param {Object} pulse instance of Pulse
+ * @param {Object} agenda instance of Agenda
  * @param {Object} jobData job data
  * @returns {Job} returns created job
  */
-export const createJob = (pulse: Pulse, jobData: JobAttributes): Job => {
-  jobData.pulse = pulse;
+export const createJob = (agenda: Agenda, jobData: JobAttributes): Job => {
+  jobData.agenda = agenda;
   return new Job(jobData);
 };

@@ -2,7 +2,7 @@
 
 
 
-## `pulse.start()`
+## `agenda.start()`
 
 {% hint style="info" %}
 The `start` method activates the job queue, beginning the regular processing of jobs based on the interval specified in the `processEvery` method. This is a crucial method to call after setting up job intervals and before scheduling any jobs to ensure the job queue operates correctly.
@@ -11,13 +11,13 @@ The `start` method activates the job queue, beginning the regular processing of 
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
-pulse.processEvery(100);
+agenda.processEvery(100);
 
-pulse.start(); // It should be in this position See NOTES section at the page
+agenda.start(); // It should be in this position See NOTES section at the page
 
-pulse.every('1 day', 'dailyReport', { reportId: 123 });
+agenda.every('1 day', 'dailyReport', { reportId: 123 });
 ```
 
 

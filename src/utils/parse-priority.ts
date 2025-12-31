@@ -1,4 +1,4 @@
-import { JobPriority } from '../pulse/define';
+import { JobPriority } from '../agenda/define';
 
 /**
  * Internal method to turn priority into a number

@@ -1,5 +1,5 @@
 name: Bug report
-description:  Create a bug report for the Pulse library.
+description:  Create a bug report for the Agenda library.
 labels: ['bug']
 assignees:
   - 'meabed'
@@ -7,11 +7,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        This template is to report bugs for the Pulse library.
+        This template is to report bugs for the Agenda library.
   - type: textarea
     attributes:
       label: Description
-      description: A detailed description of the bug you are encountering with the Pulse library, and how other people can reproduce it.
+      description: A detailed description of the bug you are encountering with the Agenda library, and how other people can reproduce it.
       placeholder: |
         Reproduction steps...
     validations:
@@ -24,4 +24,4 @@ body:
     attributes:
       label: Additional context
       description: |
-        Any extra information that might help us investigate.(e.g. version of Pulse, MongoDB, Node.js, etc.)
+        Any extra information that might help us investigate.(e.g. version of Agenda, MongoDB, Node.js, etc.)

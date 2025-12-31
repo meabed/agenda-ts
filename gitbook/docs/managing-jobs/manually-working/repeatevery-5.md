@@ -10,7 +10,7 @@ The `touch` method updates the `lockedAt` timestamp of a job to the current time
 
 {% code fullWidth="false" %}
 ```typescript
-const job = pulse.create('test', {});
+const job = agenda.create('test', {});
 job.touch(10);
 ```
 {% endcode %}

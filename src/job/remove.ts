@@ -7,5 +7,5 @@ export type RemoveMethod = () => Promise<number | undefined>;
  * @function
  */
 export const remove: RemoveMethod = async function (this: Job) {
-  return this.pulse.cancel({ _id: this.attrs._id });
+  return this.agenda.cancel({ _id: this.attrs._id });
 };

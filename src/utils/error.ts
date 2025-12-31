@@ -6,7 +6,7 @@ export class BaseError extends Error {
   }
 }
 
-export class PulseError extends BaseError {
+export class AgendaError extends BaseError {
   constructor(public message: string) {
     super(message);
     this.name = this.constructor.name;

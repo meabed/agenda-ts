@@ -1,6 +1,6 @@
 import * as mongodb from 'mongodb';
-import { Pulse } from '../pulse';
-import { JobPriority } from '../pulse/define';
+import { Agenda } from '../agenda';
+import { JobPriority } from '../agenda/define';
 import { parsePriority } from '../utils';
 import { ComputeNextRunAtMethod, computeNextRunAt } from './compute-next-run-at';
 import { DisableMethod, disable } from './disable';
@@ -32,7 +32,7 @@ export interface JobAttributes<T extends JobAttributesData = JobAttributesData> 
    */
   _id: mongodb.ObjectId;
 
-  pulse: Pulse;
+  agenda: Agenda;
 
   /**
    * The type of the job (single|normal).
@@ -169,16 +169,16 @@ export interface JobAttributes<T extends JobAttributesData = JobAttributesData> 
 /**
  * @class
  * @param {Object} args - Job Options
- * @property {Object} pulse - The Pulse instance
+ * @property {Object} agenda - The Agenda instance
  * @property {Object} attrs
  */
 class Job<T extends JobAttributesData = JobAttributesData> {
   private _lazyBindings: Record<string, any> = {};
 
   /**
-   * The pulse that created the job.
+   * The agenda that created the job.
    */
-  pulse: Pulse;
+  agenda: Agenda;
 
   /**
    * The database record associated with the job.
@@ -186,10 +186,10 @@ class Job<T extends JobAttributesData = JobAttributesData> {
   attrs: JobAttributes<T>;
 
   constructor(options: Modify<JobAttributes<T>, { _id?: mongodb.ObjectId }>) {
-    const { pulse, type, nextRunAt, ...args } = options ?? {};
+    const { agenda, type, nextRunAt, ...args } = options ?? {};
 
-    // Save Pulse instance
-    this.pulse = pulse;
+    // Save Agenda instance
+    this.agenda = agenda;
 
     // Set priority
     args.priority = args.priority === undefined ? JobPriority.normal : parsePriority(args.priority);

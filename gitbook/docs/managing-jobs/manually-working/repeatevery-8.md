@@ -15,7 +15,7 @@ The `run` method executes the processing logic defined for a specific job, handl
 
 {% code fullWidth="false" %}
 ```typescript
-const job = pulse.create('test', {});
+const job = agenda.create('test', {});
 job.run()
   .then(() => console.log('Job execution completed.'))
   .catch(error => console.error('Job execution failed:', error));

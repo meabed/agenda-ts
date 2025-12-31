@@ -2,33 +2,33 @@
 
 
 
-## `pulse.maxConcurrency(concurrency)`
+## `agenda.maxConcurrency(concurrency)`
 
 {% hint style="info" %}
-The `maxConcurrency` method sets the maximum number of jobs that can be processed concurrently across the entire `Pulse` instance, regardless of job type. This global setting is crucial for controlling overall system load and ensuring that job processing does not overwhelm system resources.
+The `maxConcurrency` method sets the maximum number of jobs that can be processed concurrently across the entire `Agenda` instance, regardless of job type. This global setting is crucial for controlling overall system load and ensuring that job processing does not overwhelm system resources.
 {% endhint %}
 
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Set the default concurrency for job processing to 3
-pulse.maxConcurrency(10);
+agenda.maxConcurrency(10);
 
 
-//or new Pulse({ maxConcurrenc: 10 });
+//or new Agenda({ maxConcurrenc: 10 });
 ```
 
 
 
 ### Parameters
 
-* **`concurrency`** (`number`): The maximum number of concurrent jobs allowed. This setting applies to all job types handled by the `Pulse` instance.
+* **`concurrency`** (`number`): The maximum number of concurrent jobs allowed. This setting applies to all job types handled by the `Agenda` instance.
 
 ### Returns
 
-* **`Pulse`**: Returns the instance of the `Pulse` class, enabling method chaining.
+* **`Agenda`**: Returns the instance of the `Agenda` class, enabling method chaining.
 
 
 

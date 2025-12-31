@@ -1,23 +1,23 @@
 import createDebugger from 'debug';
 import { Job } from '../job';
-import { Pulse } from '../pulse';
+import { Agenda } from '../agenda';
 import { createJob } from './create-job';
 import { JobError } from './error';
 
-const debug = createDebugger('pulse:internal:processJobs');
+const debug = createDebugger('agenda:internal:processJobs');
 
 /**
  * Process methods for jobs
  * @param {Job} extraJob job to run immediately
  */
-export const processJobs = async function (this: Pulse, extraJob: Job): Promise<void> {
+export const processJobs = async function (this: Agenda, extraJob: Job): Promise<void> {
   debug(
     'starting to process jobs: [%s:%s]',
     extraJob?.attrs?.name ?? 'unknownName',
     extraJob?.attrs?._id ?? 'unknownId'
   );
   // Make sure an interval has actually been set
-  // Prevents race condition with 'Pulse.stop' and already scheduled run
+  // Prevents race condition with 'Agenda.stop' and already scheduled run
   if (!this._processInterval) {
     debug('no _processInterval set when calling processJobs, returning');
     return;
@@ -30,7 +30,7 @@ export const processJobs = async function (this: Pulse, extraJob: Job): Promise<
 
   // Determine whether or not we have a direct process call!
   if (!extraJob) {
-    // Go through each jobName set in 'Pulse.process' and fill the queue with the next jobs
+    // Go through each jobName set in 'Agenda.process' and fill the queue with the next jobs
     const parallelJobQueueing = [];
     for (jobName in definitions) {
       if ({}.hasOwnProperty.call(definitions, jobName)) {
@@ -292,7 +292,7 @@ export const processJobs = async function (this: Pulse, extraJob: Job): Promise<
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .then((job: any) => processJobResult(job))
             .catch((error: Error) => {
-              return job.pulse.emit('error', error);
+              return job.agenda.emit('error', error);
             });
         } else {
           // Run the job immediately by putting it on the top of the queue

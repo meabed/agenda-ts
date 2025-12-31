@@ -2,27 +2,27 @@
 
 
 
-## `pulse.name(name)`
+## `agenda.name(name)`
 
 {% hint style="info" %}
-The `name` method of the `Pulse` class allows setting or updating the name of the job queue. This name can be used for identification and management purposes within applications that may handle multiple queues.
+The `name` method of the `Agenda` class allows setting or updating the name of the job queue. This name can be used for identification and management purposes within applications that may handle multiple queues.
 {% endhint %}
 
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
-pulse.name('emailProcessingQueue');
+const agenda = new Agenda();
+agenda.name('emailProcessingQueue');
 
-//or new Pulse({ name:'emailProcessingQueue' });
+//or new Agenda({ name:'emailProcessingQueue' });
 ```
 
 ### Parameters
 
-* **`name`** (`string`): The name to assign to the Pulse instance's job queue.
+* **`name`** (`string`): The name to assign to the Agenda instance's job queue.
 
 ### Returns
 
-* **`Pulse`**: Returns the instance of the `Pulse` class, allowing for method chaining.
+* **`Agenda`**: Returns the instance of the `Agenda` class, allowing for method chaining.
 
 ####

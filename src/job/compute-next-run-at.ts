@@ -7,7 +7,7 @@ import { CronExpressionParser } from 'cron-parser';
 import date from 'date.js';
 import { Job } from '../job';
 
-const debug = createDebugger('pulse:job');
+const debug = createDebugger('agenda:job');
 
 export type ComputeNextRunAtMethod = () => Job;
 /**

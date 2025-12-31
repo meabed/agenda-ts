@@ -83,7 +83,7 @@ Agenda-TS is a modern TypeScript fork of the [Agenda](https://github.com/agenda/
     │   ├── cjs.ts
     │   ├── index.ts
     │   ├── job
-    │   ├── pulse
+    │   ├── agenda
     │   └── utils
     ├── tsconfig.eslint.json
     └── tsconfig.json

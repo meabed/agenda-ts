@@ -15,7 +15,7 @@ _This does **NOT** save the job in the database.  you must explicitly declare_ [
 
 {% code fullWidth="false" %}
 ```typescript
-const job = pulse.create('test', {});
+const job = agenda.create('test', {});
 job.repeatAt("17:00");
 await job.save(); // If you want to save it
 

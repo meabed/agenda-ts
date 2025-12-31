@@ -2,7 +2,7 @@
 
 
 
-## `pulse.disable(query)`
+## `agenda.disable(query)`
 
 {% hint style="info" %}
 The `disable` method updates job records in the MongoDB database to set a `disabled` flag to `true`, effectively halting their execution by the job processor. This method allows for selective disabling of jobs without removing them from the database, providing a way to pause job execution as needed.
@@ -11,12 +11,12 @@ The `disable` method updates job records in the MongoDB database to set a `disab
 ### Example Usage
 
 ```typescript
-const pulse = new Pulse();
+const agenda = new Agenda();
 
 // Example of disabling all jobs that are scheduled to run on weekends
 const weekendQuery = { runDay: { $in: ['Saturday', 'Sunday'] } };
 
-pulse.disable(weekendQuery)
+agenda.disable(weekendQuery)
   .then(modifiedCount => console.log(`${modifiedCount} jobs scheduled for weekends were disabled`))
   .catch(error => console.error('Failed to disable jobs:', error));
 ```

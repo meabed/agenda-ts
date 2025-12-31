@@ -11,7 +11,7 @@ interface FetchStatusResponse {
 export type FetchStatusMethod = () => Promise<FetchStatusResponse>;
 
 export const fetchStatus: FetchStatusMethod = async function (this: Job) {
-  const dbJob = await this.pulse.getJobsRepo({ _id: this.attrs._id });
+  const dbJob = await this.agenda.getJobsRepo({ _id: this.attrs._id });
   if (!dbJob || dbJob.length === 0) {
     return {
       status: false,

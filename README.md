@@ -13,11 +13,6 @@
 	<img src="https://img.shields.io/github/languages/top/meabed/agenda-ts?style=default&color=24E0A4" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/meabed/agenda-ts?style=default&color=24E0A4" alt="repo-language-count">
 <p>
->
-> This package is forked version from [pulse](https://github.com/pulsecron/pulse/)
->
-> It has been updated, fixed few bugs, actively adding features and updated dependencies and codebase to the latest packages
->
 
 <p align="center">
 	<!-- default option, no dependency badges. -->
@@ -52,9 +47,9 @@ Agenda-TS is a modern TypeScript fork of the [Agenda](https://github.com/agenda/
 
 <br/>
 
-#### Related Projects
-- [agenda-ts](https://github.com/meabed/agenda-ts) - Modern MongoDB-powered job scheduler for Node.js
-- [nestjs-agenda-ts](https://github.com/meabed/nestjs-agenda-ts) - official NestJS module for Agenda-TS.
+> This package is forked version from [pulse](https://github.com/pulsecron/pulse/)
+>
+> It has been updated, fixed few bugs, actively adding features and updated dependencies and codebase to the latest packages
 
 ---
 

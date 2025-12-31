@@ -1,7 +1,7 @@
-import * as parser from 'cron-parser';
 import createDebugger from 'debug';
 import humanInterval from 'human-interval';
 import moment from 'moment-timezone';
+import { CronExpressionParser } from 'cron-parser';
 
 // @ts-expect-error
 import date from 'date.js';
@@ -46,12 +46,12 @@ export const computeNextRunAt: ComputeNextRunAtMethod = function (this: Job) {
     }
 
     try {
-      let cronTime = parser.parseExpression(interval!, cronOptions);
+      let cronTime = CronExpressionParser.parse(interval!, cronOptions);
       let nextDate: Date | null = cronTime.next().toDate();
       if (nextDate.getTime() === lastRun.getTime() || nextDate.getTime() <= previousNextRunAt.getTime()) {
         // Handle cronTime giving back the same date for the next run time
         cronOptions.currentDate = new Date(lastRun.getTime() + 1000);
-        cronTime = parser.parseExpression(interval!, cronOptions);
+        cronTime = CronExpressionParser.parse(interval!, cronOptions);
         nextDate = cronTime.next().toDate();
       }
 
@@ -60,7 +60,7 @@ export const computeNextRunAt: ComputeNextRunAtMethod = function (this: Job) {
         startDate = moment.tz(moment(startDate).format('YYYY-MM-DD HH:mm'), timezone!).toDate();
         if (startDate > nextDate) {
           cronOptions.currentDate = startDate;
-          cronTime = parser.parseExpression(interval!, cronOptions);
+          cronTime = CronExpressionParser.parse(interval!, cronOptions);
           nextDate = cronTime.next().toDate();
         }
       }

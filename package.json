@@ -49,6 +49,10 @@
     "test": "jest --detectOpenHandles --forceExit",
     "test:coverage": "jest --coverage",
     "test:debug": "DEBUG=agenda:** jest",
+    "test-prev-vers-4": "yarn add mongodb@4 --dev --ignore-scripts && yarn test && git checkout HEAD -- package.json yarn.lock",
+    "test-prev-vers-5": "yarn add mongodb@5 --dev --ignore-scripts && yarn test && git checkout HEAD -- package.json yarn.lock",
+    "test-prev-vers-6": "yarn add mongodb@6 --dev --ignore-scripts && yarn test && git checkout HEAD -- package.json yarn.lock",
+    "test-prev-vers-7": "yarn add mongodb@7 --dev --ignore-scripts && yarn test && git checkout HEAD -- package.json yarn.lock",
     "typecheck": "tsc --noEmit"
   },
   "config": {
@@ -63,7 +67,7 @@
     "debug": "~4.4.3",
     "human-interval": "~2.0.1",
     "moment-timezone": "^0.6.0",
-    "mongodb": "^7.0.0"
+    "mongodb": "^7"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",

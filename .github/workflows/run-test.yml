@@ -40,9 +40,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run tests mongodb vers 4
-        run: yarn test-prev-vers-4
-
       - name: Run tests mongodb vers 5
         run: yarn test-prev-vers-5
 

@@ -84,7 +84,7 @@
 
 ### 🚀 FEATURES
 
-* add countJobs method to Pulse class ([fdd000e](https://github.com/meabed/agenda-ts/commit/fdd000ec94c2c07ff8ee68f8e5d0e0d50787d2c3))
+* add countJobs method to Agenda class ([fdd000e](https://github.com/meabed/agenda-ts/commit/fdd000ec94c2c07ff8ee68f8e5d0e0d50787d2c3))
 
 ## [1.4.4](https://github.com/meabed/agenda-ts/compare/v1.4.3...v1.4.4) (2024-05-19)
 
@@ -98,7 +98,7 @@
 
 ### 🐛 BUG FIXES
 
-* fix import path in pulse/every.ts ([ac45fd0](https://github.com/meabed/agenda-ts/commit/ac45fd0e1a022b29a69d00f978aeaea426039d80))
+* fix import path in agenda/every.ts ([ac45fd0](https://github.com/meabed/agenda-ts/commit/ac45fd0e1a022b29a69d00f978aeaea426039d80))
 
 ## [1.4.2](https://github.com/meabed/agenda-ts/compare/v1.4.1...v1.4.2) (2024-05-08)
 
@@ -126,7 +126,7 @@
 
 ### 🚀 FEATURES
 
-* add resumeOnRestart option to PulseConfig ([#25](https://github.com/meabed/agenda-ts/issues/25)) ([0e53e12](https://github.com/meabed/agenda-ts/commit/0e53e12f692798d6107afec860893749ed642858))
+* add resumeOnRestart option to AgendaConfig ([#25](https://github.com/meabed/agenda-ts/issues/25)) ([0e53e12](https://github.com/meabed/agenda-ts/commit/0e53e12f692798d6107afec860893749ed642858))
 
 ## [1.2.1](https://github.com/meabed/agenda-ts/compare/v1.2.0...v1.2.1) (2024-05-03)
 
@@ -141,9 +141,9 @@
 ### 🚀 FEATURES
 
 * add fetchStatus method to Job class ([e5e904e](https://github.com/meabed/agenda-ts/commit/e5e904e0769808dc19b38d76623e8f63b17ac110))
-* add getJobsRepo method to Pulse class ([27db921](https://github.com/meabed/agenda-ts/commit/27db9210a516b4258e0f89e2d00ba4eb5e42ef30))
+* add getJobsRepo method to Agenda class ([27db921](https://github.com/meabed/agenda-ts/commit/27db9210a516b4258e0f89e2d00ba4eb5e42ef30))
 * add isExpired method to Job class ([973d0b8](https://github.com/meabed/agenda-ts/commit/973d0b8c448ad6de5cb61c6438d16ff690f9ef2e))
-* emit 'cancel' event with deletedCount in cancel method of Pulse class ([0947655](https://github.com/meabed/agenda-ts/commit/0947655ec43179b3a9004a0e4c94a0b19e751c89))
+* emit 'cancel' event with deletedCount in cancel method of Agenda class ([0947655](https://github.com/meabed/agenda-ts/commit/0947655ec43179b3a9004a0e4c94a0b19e751c89))
 * update isRunning method in Job class to support fetching real status ([5335524](https://github.com/meabed/agenda-ts/commit/533552495393943209c1e533a109e3338a11b155))
 
 ## [1.1.12](https://github.com/meabed/agenda-ts/compare/v1.1.11...v1.1.12) (2024-05-02)
@@ -165,7 +165,7 @@
 
 ### 🐛 BUG FIXES
 
-* return resolve pulse.stop() case of success ([#18](https://github.com/meabed/agenda-ts/issues/18)) ([df7e6f4](https://github.com/meabed/agenda-ts/commit/df7e6f48c9ca545728689e954505088d36ca3081))
+* return resolve agenda.stop() case of success ([#18](https://github.com/meabed/agenda-ts/issues/18)) ([df7e6f4](https://github.com/meabed/agenda-ts/commit/df7e6f48c9ca545728689e954505088d36ca3081))
 
 ## [1.1.9](https://github.com/meabed/agenda-ts/compare/v1.1.8...v1.1.9) (2024-05-02)
 
@@ -179,28 +179,28 @@
 
 ### 🐛 BUG FIXES
 
-* add PulseOnEventType and override on method in Pulse class ([#12](https://github.com/meabed/agenda-ts/issues/12)) ([c8849b0](https://github.com/meabed/agenda-ts/commit/c8849b0b34e9ca9d0d2c3e00ccbd8222530e09c4))
+* add AgendaOnEventType and override on method in Agenda class ([#12](https://github.com/meabed/agenda-ts/issues/12)) ([c8849b0](https://github.com/meabed/agenda-ts/commit/c8849b0b34e9ca9d0d2c3e00ccbd8222530e09c4))
 
 ## [1.1.7](https://github.com/meabed/agenda-ts/compare/v1.1.6...v1.1.7) (2024-04-16)
 
 
 ### 🐛 BUG FIXES
 
-* update return type of every method in pulse/every.ts & update database method in Pulse class to be public ([#11](https://github.com/meabed/agenda-ts/issues/11)) ([27d660c](https://github.com/meabed/agenda-ts/commit/27d660c586364a5b7cdf79577c984fe191bbf6a3))
+* update return type of every method in agenda/every.ts & update database method in Agenda class to be public ([#11](https://github.com/meabed/agenda-ts/issues/11)) ([27d660c](https://github.com/meabed/agenda-ts/commit/27d660c586364a5b7cdf79577c984fe191bbf6a3))
 
 ## [1.1.6](https://github.com/meabed/agenda-ts/compare/v1.1.5...v1.1.6) (2024-04-16)
 
 
 ### 🐛 BUG FIXES
 
-* update type job creation methods in pulse/every.ts, pulse/now.ts, and pulse/schedule.ts ([696e4d0](https://github.com/meabed/agenda-ts/commit/696e4d0e967acdbf9c6d4a4fc0fe26eb0e078820))
+* update type job creation methods in agenda/every.ts, agenda/now.ts, and agenda/schedule.ts ([696e4d0](https://github.com/meabed/agenda-ts/commit/696e4d0e967acdbf9c6d4a4fc0fe26eb0e078820))
 
 ## [1.1.5](https://github.com/meabed/agenda-ts/compare/v1.1.4...v1.1.5) (2024-04-15)
 
 
 ### 🐛 BUG FIXES
 
-* add new release configuration for API, job, and pulse scopes ([29ab228](https://github.com/meabed/agenda-ts/commit/29ab2289d2adaffad03708be0443b1e057941ff1))
+* add new release configuration for API, job, and agenda scopes ([29ab228](https://github.com/meabed/agenda-ts/commit/29ab2289d2adaffad03708be0443b1e057941ff1))
 
 ## [1.1.4](https://github.com/meabed/agenda-ts/compare/v1.1.3...v1.1.4) (2024-04-15)
 
@@ -228,7 +228,7 @@
 
 ### ♻️ REFACTOR
 
-* all functions in Pulse class and Job class ([#9](https://github.com/meabed/agenda-ts/issues/9)) ([4fef6dc](https://github.com/meabed/agenda-ts/commit/4fef6dc2dbf6c695d3cc722a7a8fb0ab48db3cd1))
+* all functions in Agenda class and Job class ([#9](https://github.com/meabed/agenda-ts/issues/9)) ([4fef6dc](https://github.com/meabed/agenda-ts/commit/4fef6dc2dbf6c695d3cc722a7a8fb0ab48db3cd1))
 
 ## [1.1.0](https://github.com/meabed/agenda-ts/compare/v1.0.2...v1.1.0) (2024-04-11)
 

@@ -12,9 +12,9 @@ export type IsRunningMethod = (useRealStatus?: boolean) => boolean;
  */
 export const isRunning: IsRunningMethod = function (this: Job, useRealStatus = false) {
   if (useRealStatus) {
-    this.fetchStatus();
+    this.fetchStatus().then();
   }
-  ``;
+
   if (!this.attrs.lastRunAt) {
     return false;
   }

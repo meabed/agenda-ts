@@ -1,0 +1,49 @@
+{
+  "$schema": "https://oxlint.com/config/v1",
+  "categories": {
+    "correctness": "warn",
+    "suspicious": "warn",
+    "perf": "warn",
+    "style": "off",
+    "pedantic": "off"
+  },
+  "ignore": ["node_modules", "dist", "coverage", "build", "*.d.ts"],
+  "settings": {
+    "typescript": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "no-unused-vars": "error",
+    "no-explicit-any": "warn",
+    "prefer-const": "warn",
+    "no-console": "off",
+    "no-debugger": "error",
+    "eqeqeq": ["warn", "always"],
+    "no-var": "error",
+    "prefer-arrow-callback": "warn",
+    "prefer-template": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.ts"],
+      "rules": {
+        "no-async-promise-executor": "off"
+      }
+    },
+    {
+      "files": ["test/**/*.ts", "**/*.spec.ts", "**/*.test.ts"],
+      "rules": {
+        "no-explicit-any": "off"
+      }
+    },
+    {
+      "files": ["examples/**/*.ts"],
+      "rules": {
+        "no-explicit-any": "off",
+        "no-unused-vars": "off",
+        "no-console": "off"
+      }
+    }
+  ]
+}

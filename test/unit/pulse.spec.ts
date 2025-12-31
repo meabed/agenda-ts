@@ -3,7 +3,7 @@
 import { Db } from 'mongodb';
 
 import { Pulse } from '../../src';
-import { Job } from '../../src/job';
+import { Job } from '../../src';
 import { hasMongoProtocol } from '../../src/pulse/has-mongo-protocol';
 import { mockMongoDb } from '../helpers/mock.helper';
 
@@ -239,7 +239,7 @@ describe('Test Pulse', () => {
         await globalPulseInstance.resumeOnRestart();
 
         const updatedJob = (await globalPulseInstance.jobs({ name: 'sendEmail' }))[0];
-        expect(updatedJob.attrs.nextRunAt?.getTime()).toBeGreaterThan(Date.now() - 100);
+        expect(updatedJob.attrs.nextRunAt?.getTime()).toBeGreaterThan(Date.now() + 1000);
       });
 
       test('should resume recurring jobs on restart - interval', async () => {

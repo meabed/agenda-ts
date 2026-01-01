@@ -33,7 +33,62 @@ import { SortMethod, sort } from './sort';
 import { StartMethod, start } from './start';
 import { StopMethod, stop } from './stop';
 
-export type AgendaOnEventType = 'ready' | 'start' | 'success' | 'fail' | 'complete' | 'cancel' | 'error';
+/**
+ * Base event types that don't require a job name
+ */
+export type AgendaBaseEventType = 'ready' | 'error';
+
+/**
+ * Event types that can be prefixed with a job name (e.g., 'start:myJob')
+ */
+export type AgendaJobEventType = 'start' | 'success' | 'fail' | 'complete' | 'cancel';
+
+/**
+ * Creates prefixed event types for job-specific events
+ * e.g., 'start:myJob' | 'success:myJob' | 'fail:myJob' | 'complete:myJob' | 'cancel:myJob'
+ */
+export type AgendaPrefixedEventType<JobName extends string> = `${AgendaJobEventType}:${JobName}`;
+
+/**
+ * All possible event types for the Agenda instance
+ * Includes base events, job events, and prefixed job events
+ */
+export type AgendaOnEventType<JobNames extends string = string> =
+  | AgendaBaseEventType
+  | AgendaJobEventType
+  | AgendaPrefixedEventType<JobNames>;
+
+/**
+ * Listener function type for job events (start, success, complete, cancel)
+ */
+export type AgendaJobListener = (job: Job) => void;
+
+/**
+ * Listener function type for fail events
+ */
+export type AgendaFailListener = (error: Error, job: Job) => void;
+
+/**
+ * Listener function type for ready event
+ */
+export type AgendaReadyListener = () => void;
+
+/**
+ * Listener function type for error event
+ */
+export type AgendaErrorListener = (error: Error) => void;
+
+/**
+ * Maps event types to their corresponding listener function types
+ */
+export type AgendaEventListener<E extends string> = E extends 'ready'
+  ? AgendaReadyListener
+  : E extends 'error'
+    ? AgendaErrorListener
+    : E extends 'fail' | `fail:${string}`
+      ? AgendaFailListener
+      : AgendaJobListener;
+
 export interface AgendaConfig {
   name?: string;
   processEvery?: string;
@@ -73,8 +128,9 @@ export interface AgendaConfig {
  * @property {Boolean} _isLockingOnTheFly - true if 'lockingOnTheFly' is currently running. Prevent concurrent execution of this method.
  * @property {Map} _isJobQueueFilling - A map of jobQueues and if the 'jobQueueFilling' method is currently running for a given map. 'lockingOnTheFly' and 'jobQueueFilling' should not run concurrently for the same jobQueue. It can cause that lock limits aren't honored.
  * @property {Array} _jobsToLock
+ * @template JobNames - Union type of job name literals for type-safe event handling
  */
-class Agenda extends EventEmitter {
+class Agenda<JobNames extends string = string> extends EventEmitter {
   private _lazyBindings: Record<string, any> = {};
   _defaultConcurrency: any;
   _defaultLockLifetime: any;
@@ -155,11 +211,11 @@ class Agenda extends EventEmitter {
    * *************************************
    */
 
-  get define(): DefineMethod {
+  get define(): DefineMethod<JobNames> {
     return this.bindMethod('define', define);
   }
 
-  get every(): EveryMethod {
+  get every(): EveryMethod<JobNames> {
     return this.bindMethod('every', every);
   }
 
@@ -175,7 +231,7 @@ class Agenda extends EventEmitter {
     return this.bindMethod('close', close);
   }
 
-  get create(): CreateMethod {
+  get create(): CreateMethod<JobNames> {
     return this.bindMethod('create', create);
   }
 
@@ -223,7 +279,7 @@ class Agenda extends EventEmitter {
     return this.bindMethod('name', name);
   }
 
-  get now(): NowMethod {
+  get now(): NowMethod<JobNames> {
     return this.bindMethod('now', now);
   }
 
@@ -235,7 +291,7 @@ class Agenda extends EventEmitter {
     return this.bindMethod('saveJob', saveJob);
   }
 
-  get schedule(): ScheduleMethod {
+  get schedule(): ScheduleMethod<JobNames> {
     return this.bindMethod('schedule', schedule);
   }
 
@@ -255,11 +311,11 @@ class Agenda extends EventEmitter {
     return this.bindMethod('drain', drain);
   }
 
-  get mongo(): MongoMethod {
+  get mongo(): MongoMethod<JobNames> {
     return this.bindMethod('mongo', mongo);
   }
 
-  get database(): DatabaseMethod {
+  get database(): DatabaseMethod<JobNames> {
     return this.bindMethod('database', database);
   }
 
@@ -284,7 +340,7 @@ class Agenda extends EventEmitter {
    * *************************************
    */
 
-  on(event: AgendaOnEventType, listener: (...arg: any[]) => void): this {
+  on<E extends AgendaOnEventType<JobNames>>(event: E, listener: AgendaEventListener<E>): this {
     return super.on(event, listener);
   }
 

@@ -4,7 +4,7 @@ import { Job, JobAttributesData } from '../job';
 
 const debug = createDebugger('agenda:create');
 
-export type CreateMethod = <T extends JobAttributesData>(name: string, data: T) => Job<T>;
+export type CreateMethod<JobNames extends string = string> = <T extends JobAttributesData>(name: JobNames, data: T) => Job<T>;
 /**
  * Given a name and some data, create a new job
  * @name Agenda#create

@@ -6,9 +6,9 @@ import { AgendaError } from '../utils';
 
 const debug = createDebugger('agenda:every');
 
-export type EveryMethod = <T extends JobAttributesData>(
+export type EveryMethod<JobNames extends string = string> = <T extends JobAttributesData>(
   interval: string,
-  names: string | string[],
+  names: JobNames | JobNames[],
   data?: T,
   options?: JobOptions
 ) => Promise<Job | Job[]>;

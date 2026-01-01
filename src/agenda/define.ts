@@ -70,8 +70,8 @@ export type Processor<T extends JobAttributesData> = (
   done: (error?: Error, result?: unknown) => void
 ) => unknown | Promise<unknown>;
 
-export type DefineMethod = <T extends JobAttributesData>(
-  name: string,
+export type DefineMethod<JobNames extends string = string> = <T extends JobAttributesData>(
+  name: JobNames,
   processor: Processor<T>,
   options?: DefineOptions
 ) => void;

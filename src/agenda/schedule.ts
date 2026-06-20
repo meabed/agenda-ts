@@ -74,4 +74,8 @@ export const schedule = function schedule<T extends JobAttributesData>(
   throw new TypeError('Name must be string or array of strings');
 };
 
-export type ScheduleMethod = typeof schedule;
+export type ScheduleMethod<JobNames extends string = string> = <T extends JobAttributesData>(
+  when: string | Date,
+  names: JobNames | JobNames[],
+  data?: T
+) => ReturnType<typeof schedule<T>>;

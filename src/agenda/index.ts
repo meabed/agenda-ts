@@ -1,7 +1,19 @@
 import { EventEmitter } from 'events';
 import humanInterval from 'human-interval';
-import { AnyError, Collection, MongoClient, MongoClientOptions, Db as MongoDb } from 'mongodb';
-import { Job } from '../job';
+import { AnyError, Collection, IndexSpecification, MongoClient, MongoClientOptions, Db as MongoDb } from 'mongodb';
+import { Job, JobAttributes } from '../job';
+
+/**
+ * Sort direction for MongoDB queries
+ */
+export type SortDirection = 1 | -1;
+
+/**
+ * Sort specification object for job queries
+ */
+export interface AgendaSortSpec {
+  [key: string]: SortDirection;
+}
 import { CancelMethod, cancel } from './cancel';
 import { CloseMethod, close } from './close';
 import { CountJobsMethod, countJobs } from './count-jobs';
@@ -11,7 +23,7 @@ import { DbInitMethod, dbInit } from './db-init';
 import { DefaultConcurrencyMethod, defaultConcurrency } from './default-concurrency';
 import { DefaultLockLifetimeMethod, defaultLockLifetime } from './default-lock-lifetime';
 import { DefaultLockLimitMethod, defaultLockLimit } from './default-lock-limit';
-import { DefineMethod, define } from './define';
+import { DefineMethod, define, JobDefinition } from './define';
 import { DisableMethod, disable } from './disable';
 import { DrainMethod, drain } from './drain';
 import { EnableMethod, enable } from './enable';
@@ -33,7 +45,62 @@ import { SortMethod, sort } from './sort';
 import { StartMethod, start } from './start';
 import { StopMethod, stop } from './stop';
 
-export type AgendaOnEventType = 'ready' | 'start' | 'success' | 'fail' | 'complete' | 'cancel' | 'error';
+/**
+ * Base event types that don't require a job name
+ */
+export type AgendaBaseEventType = 'ready' | 'error';
+
+/**
+ * Event types that can be prefixed with a job name (e.g., 'start:myJob')
+ */
+export type AgendaJobEventType = 'start' | 'success' | 'fail' | 'complete' | 'cancel';
+
+/**
+ * Creates prefixed event types for job-specific events
+ * e.g., 'start:myJob' | 'success:myJob' | 'fail:myJob' | 'complete:myJob' | 'cancel:myJob'
+ */
+export type AgendaPrefixedEventType<JobName extends string> = `${AgendaJobEventType}:${JobName}`;
+
+/**
+ * All possible event types for the Agenda instance
+ * Includes base events, job events, and prefixed job events
+ */
+export type AgendaOnEventType<JobNames extends string = string> =
+  | AgendaBaseEventType
+  | AgendaJobEventType
+  | AgendaPrefixedEventType<JobNames>;
+
+/**
+ * Listener function type for job events (start, success, complete, cancel)
+ */
+export type AgendaJobListener = (job: Job) => void;
+
+/**
+ * Listener function type for fail events
+ */
+export type AgendaFailListener = (error: Error, job: Job) => void;
+
+/**
+ * Listener function type for ready event
+ */
+export type AgendaReadyListener = () => void;
+
+/**
+ * Listener function type for error event
+ */
+export type AgendaErrorListener = (error: Error) => void;
+
+/**
+ * Maps event types to their corresponding listener function types
+ */
+export type AgendaEventListener<E extends string> = E extends 'ready'
+  ? AgendaReadyListener
+  : E extends 'error'
+    ? AgendaErrorListener
+    : E extends 'fail' | `fail:${string}`
+      ? AgendaFailListener
+      : AgendaJobListener;
+
 export interface AgendaConfig {
   name?: string;
   processEvery?: string;
@@ -42,7 +109,7 @@ export interface AgendaConfig {
   lockLimit?: number;
   defaultLockLimit?: number;
   defaultLockLifetime?: number;
-  sort?: any;
+  sort?: AgendaSortSpec;
   mongo?: MongoDb;
   db?: {
     address: string;
@@ -73,15 +140,16 @@ export interface AgendaConfig {
  * @property {Boolean} _isLockingOnTheFly - true if 'lockingOnTheFly' is currently running. Prevent concurrent execution of this method.
  * @property {Map} _isJobQueueFilling - A map of jobQueues and if the 'jobQueueFilling' method is currently running for a given map. 'lockingOnTheFly' and 'jobQueueFilling' should not run concurrently for the same jobQueue. It can cause that lock limits aren't honored.
  * @property {Array} _jobsToLock
+ * @template JobNames - Union type of job name literals for type-safe event handling
  */
-class Agenda extends EventEmitter {
-  private _lazyBindings: Record<string, any> = {};
-  _defaultConcurrency: any;
-  _defaultLockLifetime: any;
-  _defaultLockLimit: any;
-  _definitions: any;
+class Agenda<JobNames extends string = string> extends EventEmitter {
+  private _lazyBindings: Record<string, Function> = {};
+  _defaultConcurrency: number;
+  _defaultLockLifetime: number;
+  _defaultLockLimit: number;
+  _definitions: Record<string, JobDefinition>;
   _findAndLockNextJob = findAndLockNextJob;
-  _indices: any;
+  _indices: IndexSpecification;
   _disableAutoIndex: boolean;
   _resumeOnRestart: boolean;
   _isLockingOnTheFly: boolean;
@@ -90,17 +158,19 @@ class Agenda extends EventEmitter {
   _jobsToLock: Job[];
   _lockedJobs: Job[];
   _runningJobs: Job[];
-  _lockLimit: any;
-  _maxConcurrency: any;
+  _lockLimit: number;
+  _maxConcurrency: number;
   _mongoUseUnifiedTopology?: boolean;
-  _name: any;
+  _name?: string;
   _processEvery: number;
   _ready: Promise<unknown>;
-  _sort: any;
+  _sort: AgendaSortSpec;
   _db!: MongoClient;
   _mdb!: MongoDb;
-  _collection!: Collection;
+  _collection!: Collection<JobAttributes>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _nextScanAt: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _processInterval: any;
   _readyAt: Date;
 
@@ -155,11 +225,11 @@ class Agenda extends EventEmitter {
    * *************************************
    */
 
-  get define(): DefineMethod {
+  get define(): DefineMethod<JobNames> {
     return this.bindMethod('define', define);
   }
 
-  get every(): EveryMethod {
+  get every(): EveryMethod<JobNames> {
     return this.bindMethod('every', every);
   }
 
@@ -175,7 +245,7 @@ class Agenda extends EventEmitter {
     return this.bindMethod('close', close);
   }
 
-  get create(): CreateMethod {
+  get create(): CreateMethod<JobNames> {
     return this.bindMethod('create', create);
   }
 
@@ -223,7 +293,7 @@ class Agenda extends EventEmitter {
     return this.bindMethod('name', name);
   }
 
-  get now(): NowMethod {
+  get now(): NowMethod<JobNames> {
     return this.bindMethod('now', now);
   }
 
@@ -235,11 +305,11 @@ class Agenda extends EventEmitter {
     return this.bindMethod('saveJob', saveJob);
   }
 
-  get schedule(): ScheduleMethod {
+  get schedule(): ScheduleMethod<JobNames> {
     return this.bindMethod('schedule', schedule);
   }
 
-  get sort(): SortMethod {
+  get sort(): SortMethod<JobNames> {
     return this.bindMethod('sort', sort);
   }
 
@@ -255,11 +325,11 @@ class Agenda extends EventEmitter {
     return this.bindMethod('drain', drain);
   }
 
-  get mongo(): MongoMethod {
+  get mongo(): MongoMethod<JobNames> {
     return this.bindMethod('mongo', mongo);
   }
 
-  get database(): DatabaseMethod {
+  get database(): DatabaseMethod<JobNames> {
     return this.bindMethod('database', database);
   }
 
@@ -284,7 +354,7 @@ class Agenda extends EventEmitter {
    * *************************************
    */
 
-  on(event: AgendaOnEventType, listener: (...arg: any[]) => void): this {
+  on<E extends AgendaOnEventType<JobNames>>(event: E, listener: AgendaEventListener<E>): this {
     return super.on(event, listener);
   }
 

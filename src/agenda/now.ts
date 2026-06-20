@@ -4,7 +4,7 @@ import { Job, JobAttributesData } from '../job';
 
 const debug = createDebugger('agenda:now');
 
-export type NowMethod = <T extends JobAttributesData>(name: string, data?: T) => Promise<Job>;
+export type NowMethod<JobNames extends string = string> = <T extends JobAttributesData>(name: JobNames, data?: T) => Promise<Job>;
 /**
  * Create a job for this exact moment
  * @name Agenda#now

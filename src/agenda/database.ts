@@ -6,13 +6,12 @@ import { hasMongoProtocol } from './has-mongo-protocol';
 
 const debug = createDebugger('agenda:database');
 
-export type DatabaseMethod = (
-  this: Agenda,
+export type DatabaseMethod<JobNames extends string = string> = (
   url: string,
   collection?: string,
   options?: MongoClientOptions,
   cb?: (error: AnyError | undefined, collection: Collection<any> | null) => void
-) => Promise<Agenda | void>;
+) => Promise<Agenda<JobNames> | void>;
 
 /**
  * Connect to the spec'd MongoDB server and database.

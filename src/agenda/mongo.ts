@@ -1,11 +1,11 @@
 import { AnyError, Collection, Db } from 'mongodb';
 import { Agenda } from '.';
 
-export type MongoMethod = (
+export type MongoMethod<JobNames extends string = string> = (
   mdb: Db,
   collection?: string,
   cb?: (error: AnyError | undefined, collection: Collection<any> | null) => void
-) => Agenda;
+) => Agenda<JobNames>;
 /**
  * Build method used to add MongoDB connection details
  * @name Agenda#mongo
